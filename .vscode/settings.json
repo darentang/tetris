@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "blocks.h": "c",
+        "python.h": "c",
+        "time.h": "c",
+        "string.h": "c",
+        "stdio.h": "c",
+        "math.h": "c"
+    }
+}

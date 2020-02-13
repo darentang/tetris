@@ -1,5 +1,5 @@
-#ifndef HEADER_FILE
-#define HEADER_FILE
+#ifndef BLOCKS
+#define BLOCKS
 
 struct Blocks{
     char name[15];
