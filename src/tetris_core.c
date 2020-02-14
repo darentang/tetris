@@ -10,6 +10,24 @@ struct offset{
     int i, j;
 };
 
+struct block{
+    char* block_name;
+    struct offset *offset;
+    int rot;
+    int *block_coor;
+};
+
+void delay(long miliseconds){
+    
+    miliseconds *= 1000;
+
+    // Storing start time 
+    clock_t start_time = clock();     
+
+    // looping till required time is not achieved 
+    while (clock() < start_time + miliseconds);
+}
+
 void disp_matrix(int *mat, int r, int c){
     int i, j;
     for (i=0; i<r; i++){
@@ -64,16 +82,26 @@ void reset_zero(int *arr, int r, int c){
 bool form_active_screen(int *arr, int *block, struct offset *o, int r, int c){
     int i, j, x;
 
-    reset_zero(arr, r, c);
+    int *temp_arr;
+    temp_arr = (int*)malloc(16 * sizeof(int));
+    reset_zero(temp_arr, r, c);
 
     for (int k = 0; k < 16; k++){
         i = k % 4 + (o->i);
         j = (int)floor(k / 4) + (o->j);
-        if (!(is_inrange(i, r) && is_inrange(j, c))){
+        if (!is_inrange(i, r) || !is_inrange(j, c)){
+            free(temp_arr);
+            temp_arr = NULL;
             return false;
         }
-        *(arr + i*c + j) = block[k];
+        *(temp_arr + i*c + j) = block[k];
     }
+    // free(arr);
+    arr = temp_arr;
+    
+    free(temp_arr);
+    temp_arr = NULL;
+
     return true;
 }
 
@@ -98,14 +126,17 @@ bool check_collide(int* arr1, int* arr2, int r, int c){
     return false;
 }
 
-void get_random_block(int *block){
+void reset_offset(struct offset *o){
+    o->i = 0;
+    o->j = 3;
+}
+
+void get_random_block(struct block *block){
     int n = rand() % 7;
-    for (int rot = 0; rot < 4; rot++){
-        for (int i = 0; i < 16; i++){
-            int x = stdblocks[n].pos[rot][i];
-            *(block + rot * 16 + i) = stdblocks[n].pos[rot][i];
-        }
-    }
+    block->block_name = stdblocks[n].name;
+    block->block_coor = &stdblocks[n].pos[0][0];
+    block->rot = 0;
+    reset_offset(block->offset);
 }
 
 void fall(struct offset *o){
@@ -116,66 +147,43 @@ void move(struct offset *o, int direction){
     o->j += direction;
 }
 
-void reset_offset(struct offset *o){
-    o->i = 0;
-    o->j = 3;
-}
 
-void fall_step(struct offset *offset, 
-               struct offset *poffset, 
-               int* active, 
-               int* inactive, 
-               int* display, 
-               int rot, 
-               int r, 
-               int c, 
-               int* block){
+
+
+void step(int* active, 
+          int* inactive, 
+          int* display, 
+          int r, 
+          int c, 
+          struct block *block,
+          int rot,
+          int dir,
+          int mode){
+    
+
+    struct offset *poffset;
+
+    poffset = malloc(sizeof(struct offset));
+
     bool valid = false;
-    // save previous state
-    *poffset = *offset;
 
-    // fall down one step
-    fall(offset);
+    int* block_coor = block->block_coor + 16 * block->rot;
+    int* desired_block_coor;
+
+    // save previous state
+    *poffset = *(block->offset);
+
+    if (mode == 0){
+        move(poffset, dir);
+        desired_block_coor = block->block_coor + 16 * rot;
+    } else if (mode == 1){
+        // fall down one step
+        fall(poffset);
+        desired_block_coor = block_coor;
+    }
     
     // Check out of bounds
-    if (form_active_screen(active, &block[rot], offset, r, c)){
-        // Check collisions with passive
-        if (!check_collide(active, inactive, r, c)){
-            valid = true;
-        }
-    }
-
-    if (valid) {
-        merge(active, inactive, display, r, c);
-    } else {
-        // Plonk down, we must have hit something right now
-        form_active_screen(active, &block[rot], poffset, r, c);
-        reset_offset(offset);
-        merge(active, inactive, inactive, r, c);
-        get_random_block(block);
-        reset_zero(active, r, c);
-    }
-}
-
-void move_step(struct offset *offset, 
-               struct offset *poffset, 
-               int* active, 
-               int* inactive, 
-               int* display, 
-               int rot, 
-               int r, 
-               int c, 
-               int* block,
-               int dir){
-    bool valid = false;
-    // save previous state
-    *poffset = *offset;
-
-    // fall down one step
-    move(offset, dir);
-    
-    // Check out of bounds
-    if (form_active_screen(active, &block[rot], offset, r, c)){
+    if (form_active_screen(active, desired_block_coor, poffset, r, c)){
         // Check collisions with passive
         if (!check_collide(active, inactive, r, c)){
             valid = true;
@@ -185,15 +193,31 @@ void move_step(struct offset *offset,
     if (valid) {
         // valid then move the new position and merge into display
         merge(active, inactive, display, r, c);
-    } else {
-        // do nothing, return to previous state
-        form_active_screen(active, &block[rot], poffset, r, c);
-        *offset = *poffset;
+
+        // set new offset
+        block->offset = poffset;
+
+        // set new rotation
+        block->rot = rot;
+
+    }else{
+        // return to previous state
+        form_active_screen(active, block_coor, block->offset, r, c);
+        if (mode == 1){
+            // merge into the inactive screen
+            merge(active, inactive, inactive, r, c);
+            // generate a new block
+            get_random_block(block);
+            // // flush the active matrix
+            reset_zero(active, r, c);
+        }
     }
-}
+    free(poffset);
+}                   
 
 
 int main(){
+    
     // random seed
     time_t t;
     srand((unsigned) time(&t));
@@ -206,41 +230,34 @@ int main(){
     int *active;
     int *display;
 
-    int *block = (int*)malloc(sizeof(stdblocks[0].pos));
-    int block_num, rot;
+    // int *block = (int*)malloc(sizeof(stdblocks[0].pos));
+
+    struct block *block;
 
     // game dimensions
     r = 20;
     c = 10;
 
-
-    // rotation num
-    rot = 0;
-
-    struct offset *offset, *poffset, o, po;
-
-    offset = &o;
-    poffset = &po;
-
-    offset->i = 0;
-    offset->j = 3;
-
     inactive = zeros(r, c);
     active = zeros(r, c);
     display = (int *)malloc(sizeof(int) * r * c);
 
-    int N = 40;
-
+    int N = 100;
     get_random_block(block);
+
     for (int t = 0; t < N; t ++){
-        fall_step(offset, poffset, active, inactive, display, rot, r, c, block);
-        move_step(offset, poffset, active, inactive, display, rot, r, c, block, 1);
+        printf("\e[1;1H\e[2J");
+        step(active, inactive, display, r, c, block, rand() % 1, 0, 1);
+        step(active, inactive, display, r, c, block, rand() % 1, -1, 0);
+        
         disp_matrix(display, r, c);
+        delay(100);        
+        
     }
 
 
     free(inactive);
     free(active);
-    free(block);
+    // free(block);
     return 0;
 }

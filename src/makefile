@@ -7,7 +7,10 @@ INCL = $(IDIR)/blocks.h
 default: lib$(SRC).a
 
 exec: $(SRC)
+
+exec_run: $(SRC)
 	./$(SRC)
+
 
 $(SRC): $(SRC).c $(INCL)
 	$(CC) $< -o $(SRC)
@@ -20,5 +23,5 @@ $(SRC).o: $(SRC).c $(INCL)
 	$(CC) -c $<
 
 clean:
-	rm *.o *.a
-	rm $(SRC)
+	rm *.o *.a $(SRC)
+	
