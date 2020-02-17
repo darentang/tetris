@@ -147,9 +147,6 @@ void move(struct offset *o, int direction){
     o->j += direction;
 }
 
-
-
-
 void step(int* active, 
           int* inactive, 
           int* display, 
