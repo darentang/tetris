@@ -4,20 +4,9 @@
 #include <stdbool.h>
 #include <string.h>
 #include <time.h>
-#include "../include/blocks.h"
+#include "tetris_core.h"
 
-struct offset{
-    int i, j;
-};
-
-struct block{
-    char* block_name;
-    struct offset *offset;
-    int rot;
-    int *block_coor;
-};
-
-void delay(long miliseconds){
+void delay(long miliseconds){ 
     
     miliseconds *= 1000;
 
@@ -29,10 +18,9 @@ void delay(long miliseconds){
 }
 
 void disp_matrix(int *mat, int r, int c){
-    int i, j;
-    for (i=0; i<r; i++){
-        printf("%02d[", i);
-        for (j=0; j<c; j++){
+    for (int i=0; i<r; i++){
+        printf("%02d|", i);
+        for (int j=0; j<c; j++){
             // printf("%d", *(mat + i*c + j));
             if (*(mat + i*c + j)){
                 printf("#");
@@ -40,19 +28,14 @@ void disp_matrix(int *mat, int r, int c){
                 printf(" ");
             }
         }
-        printf("]\n");
+        printf("|\n");
     }
     printf("\n");
 }
 
 int* zeros(int r, int c){
     int i, j;
-    int *arr = (int*)malloc(c * r * sizeof(int));
-    for (i=0; i<r; i++){
-        for (j=0; j<c; j++){
-            *(arr + i*c + j) = 0;
-        }
-    }
+    int *arr = (int*)calloc(c * r, sizeof(int));
     return arr;
 }
 
@@ -68,7 +51,7 @@ int* ones(int r, int c){
 }
 
 bool is_inrange(int x, int d){
-    return (0 <= x && x <= d);
+    return (0 <= x && x < d);
 }
 
 void reset_zero(int *arr, int r, int c){
@@ -79,29 +62,33 @@ void reset_zero(int *arr, int r, int c){
     }
 }
 
-bool form_active_screen(int *arr, int *block, struct offset *o, int r, int c){
+void deepcopy(int* from, int* to, int n){
+    for (int i = 0; i < n; i ++){
+        *(to + i) = *(from + i);
+    }
+}
+
+bool form_active_screen(int* arr, int* block, struct offset* o, int r, int c){
     int i, j, x;
 
-    int *temp_arr;
-    temp_arr = (int*)malloc(16 * sizeof(int));
-    reset_zero(temp_arr, r, c);
+    int temp_arr[r * c];
+    
+    reset_zero(&temp_arr[0], r, c);
+
+    int** old_ptr = &arr;
 
     for (int k = 0; k < 16; k++){
         i = k % 4 + (o->i);
         j = (int)floor(k / 4) + (o->j);
-        if (!is_inrange(i, r) || !is_inrange(j, c)){
-            free(temp_arr);
-            temp_arr = NULL;
-            return false;
+        if (block[k]){
+            if ((!is_inrange(i, r) || !is_inrange(j, c))){
+                return false;
+            }else{
+                temp_arr[i*c + j] = block[k];
+            }
         }
-        *(temp_arr + i*c + j) = block[k];
     }
-    // free(arr);
-    arr = temp_arr;
-    
-    free(temp_arr);
-    temp_arr = NULL;
-
+    deepcopy(&temp_arr[0], arr, r * c);
     return true;
 }
 
@@ -136,6 +123,7 @@ void get_random_block(struct block *block){
     block->block_name = stdblocks[n].name;
     block->block_coor = &stdblocks[n].pos[0][0];
     block->rot = 0;
+    block->offset = malloc(sizeof(struct offset));
     reset_offset(block->offset);
 }
 
@@ -147,9 +135,7 @@ void move(struct offset *o, int direction){
     o->j += direction;
 }
 
-void step(int* active, 
-          int* inactive, 
-          int* display, 
+void step(game_state* gs, 
           int r, 
           int c, 
           struct block *block,
@@ -159,12 +145,12 @@ void step(int* active,
     
 
     struct offset *poffset;
-
     poffset = malloc(sizeof(struct offset));
 
     bool valid = false;
 
     int* block_coor = block->block_coor + 16 * block->rot;
+
     int* desired_block_coor;
 
     // save previous state
@@ -178,83 +164,78 @@ void step(int* active,
         fall(poffset);
         desired_block_coor = block_coor;
     }
+
     
     // Check out of bounds
-    if (form_active_screen(active, desired_block_coor, poffset, r, c)){
+    if (form_active_screen(gs->active, desired_block_coor, poffset, r, c)){
         // Check collisions with passive
-        if (!check_collide(active, inactive, r, c)){
+        if (!check_collide(gs->active, gs->inactive, r, c)){
             valid = true;
         }
     }
 
     if (valid) {
         // valid then move the new position and merge into display
-        merge(active, inactive, display, r, c);
-
+        merge(gs->active, gs->inactive, gs->display, r, c);
         // set new offset
-        block->offset = poffset;
-
-        // set new rotation
-        block->rot = rot;
-
+        *block->offset = *poffset;
+        if (mode == 0){
+            // set new rotation
+            block->rot = rot;
+        }
     }else{
         // return to previous state
-        form_active_screen(active, block_coor, block->offset, r, c);
+        form_active_screen(gs->active, block_coor, block->offset, r, c);
         if (mode == 1){
             // merge into the inactive screen
-            merge(active, inactive, inactive, r, c);
+            merge(gs->active, gs->inactive, gs->inactive, r, c);
             // generate a new block
             get_random_block(block);
-            // // flush the active matrix
-            reset_zero(active, r, c);
+            // flush the active matrix
+            reset_zero(gs->active, r, c);
         }
     }
     free(poffset);
 }                   
 
+struct block* init_block(void){
+    struct block *block = (struct block*)malloc(sizeof(struct block));
+    get_random_block(block);
+    return block;
+}
+
+game_state* empty_game_state(int r, int c){
+    game_state *gs = (game_state *)malloc(sizeof(game_state));
+    gs->display = (int *)calloc(r * c, sizeof(int));
+    gs->active = (int *)calloc(r * c, sizeof(int));
+    gs->inactive = (int *)calloc(r * c, sizeof(int));
+    return gs;
+}
 
 int main(){
-    
     // random seed
     time_t t;
     srand((unsigned) time(&t));
 
-    int r, c, i, j;
-    int num_blocks = 7;
-    int num_rotations = 4;
-
-    int *inactive;
-    int *active;
-    int *display;
-
-    // int *block = (int*)malloc(sizeof(stdblocks[0].pos));
-
-    struct block *block;
+    // initialise integers
+    int r, c;
 
     // game dimensions
     r = 20;
     c = 10;
 
-    inactive = zeros(r, c);
-    active = zeros(r, c);
-    display = (int *)malloc(sizeof(int) * r * c);
+    struct block *block = init_block();
+    game_state *gs = empty_game_state(r, c);
 
     int N = 100;
-    get_random_block(block);
 
     for (int t = 0; t < N; t ++){
         printf("\e[1;1H\e[2J");
-        step(active, inactive, display, r, c, block, rand() % 1, 0, 1);
-        step(active, inactive, display, r, c, block, rand() % 1, -1, 0);
+        step(gs, r, c, block, 0, 0, 1);
+        step(gs, r, c, block, rand() % 4, -1, 0);
         
-        disp_matrix(display, r, c);
-        delay(100);        
-        
+        disp_matrix(gs->display, r, c);
+        delay(100);
     }
-
-
-    free(inactive);
-    free(active);
-    // free(block);
     return 0;
 }

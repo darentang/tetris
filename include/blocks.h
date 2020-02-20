@@ -133,4 +133,22 @@ struct Blocks{
     }}
 };
 
+typedef struct GameState{
+    int* display;
+    int* active;
+    int* inactive;
+} game_state;
+
+struct offset{
+    int i, j;
+};
+
+struct block{
+    char* block_name;
+    struct offset *offset;
+    int rot;
+    int *block_coor;
+};
+
+
 #endif
