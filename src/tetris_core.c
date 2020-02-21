@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <time.h>
-#include "tetris_core.h"
+#include "../include/tetris_core.h"
 
 void delay(long miliseconds){ 
     
