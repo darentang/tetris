@@ -139,16 +139,16 @@ typedef struct GameState{
     int* inactive;
 } game_state;
 
-struct offset{
+typedef struct Offset{
     int i, j;
-};
+} offset;
 
-struct block{
+typedef struct Block{
     char* block_name;
-    struct offset *offset;
+    offset *offset;
     int rot;
     int *block_coor;
-};
+} block;
 
 
 #endif

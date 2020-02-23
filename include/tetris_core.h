@@ -5,13 +5,13 @@
 void step(game_state* gs,
           int r, 
           int c, 
-          struct block* block,
+          block* block,
           int rot,
           int dir,
           int mode);
-void get_random_block(struct block* block);
+void get_random_block(block* block);
 
-struct block* init_block(void);
+block* init_block(void);
 game_state* empty_game_state(int r, int c);
 
 #endif

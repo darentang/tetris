@@ -68,7 +68,7 @@ void deepcopy(int* from, int* to, int n){
     }
 }
 
-bool form_active_screen(int* arr, int* block, struct offset* o, int r, int c){
+bool form_active_screen(int* arr, int* block, offset* o, int r, int c){
     int i, j, x;
 
     int temp_arr[r * c];
@@ -113,39 +113,39 @@ bool check_collide(int* arr1, int* arr2, int r, int c){
     return false;
 }
 
-void reset_offset(struct offset *o){
+void reset_offset(offset *o){
     o->i = 0;
     o->j = 3;
 }
 
-void get_random_block(struct block *block){
+void get_random_block(block *block){
     int n = rand() % 7;
     block->block_name = stdblocks[n].name;
     block->block_coor = &stdblocks[n].pos[0][0];
     block->rot = 0;
-    block->offset = malloc(sizeof(struct offset));
+    block->offset = malloc(sizeof(offset));
     reset_offset(block->offset);
 }
 
-void fall(struct offset *o){
+void fall(offset *o){
     o->i ++;
 }
 
-void move(struct offset *o, int direction){
+void move(offset *o, int direction){
     o->j += direction;
 }
 
 void step(game_state* gs, 
           int r, 
           int c, 
-          struct block *block,
+          block *block,
           int rot,
           int dir,
           int mode){
     
 
-    struct offset *poffset;
-    poffset = malloc(sizeof(struct offset));
+    offset *poffset;
+    poffset = malloc(sizeof(offset));
 
     bool valid = false;
 
@@ -198,10 +198,10 @@ void step(game_state* gs,
     free(poffset);
 }                   
 
-struct block* init_block(void){
-    struct block *block = (struct block*)malloc(sizeof(struct block));
-    get_random_block(block);
-    return block;
+block* init_block(void){
+    block *b = (block *) malloc(sizeof(block));
+    get_random_block(b);
+    return b;
 }
 
 game_state* empty_game_state(int r, int c){
@@ -224,7 +224,7 @@ int main(){
     r = 20;
     c = 10;
 
-    struct block *block = init_block();
+    block *block = init_block();
     game_state *gs = empty_game_state(r, c);
 
     int N = 100;
