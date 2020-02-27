@@ -6,6 +6,7 @@
         "string.h": "c",
         "stdio.h": "c",
         "math.h": "c",
-        "tetris_core.h": "c"
+        "tetris_core.h": "c",
+        "tetris.h": "c"
     }
 }

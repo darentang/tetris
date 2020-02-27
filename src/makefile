@@ -8,7 +8,9 @@ INCL=$(IDIR)/$(SRC).h
 LDIR=../lib/
 ODIR=../bin/
 
-default: $(ODIR)$(SRC).o $(ODIR)$(CLASS).o $(CLASS)
+default: $(ODIR)$(SRC).o $(ODIR)$(CLASS).o
+
+exec: $(ODIR)$(SRC).o $(ODIR)$(CLASS).o $(CLASS)
 
 # exec: $(SRC)
 

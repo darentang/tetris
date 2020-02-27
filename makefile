@@ -1,15 +1,20 @@
-SRC=tetris_core
-LIB_DIR=lib
-SETUP=scripts/setup.py
-WRAPPER=scripts/wrapper.pyx
+IDIR=/usr/local/include/Python3.7m
+LDIR=/usr/local/lib/Python3.7
+ODIR=bin
 
-default: something
+default: _tetris.so
 
-something: $(SETUP) $(WRAPPER) $(LIB_DIR)/lib$(SRC).a
-	python3 $(SETUP) build_ext --inplace
+_tetris.so: $(ODIR)/interface_wrap.o $(ODIR)/tetris.o
+	ld -bundle -o _tetris.so $(ODIR)/interface_wrap.o $(ODIR)/tetris.o $(ODIR)/tetris_core.o -macosx_version_min 10.14 -lSystem
 
-$(LIB_DIR)/lib$(SRC).a:
-	make -C src
+$(ODIR)/tetris.o:
+	make -Csrc
+
+$(ODIR)/interface_wrap.o: scripts/interface_wrap.cxx
+	g++ -c scripts/interface_wrap.cpp -I$(IDIR) -L$(LDIR) -o $(ODIR)/interface_wrap.o
+
+scripts/interface_wrap.cxx:
+	swig -c++ -python -o scripts/interface_wrap.cpp -interface interface_wrap scripts/interface.i 
 
 clean:
-	rm *.so
+	rm bin/* scripts/interface_wrap.cpp
