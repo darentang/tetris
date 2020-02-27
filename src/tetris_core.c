@@ -4,7 +4,9 @@
 #include <stdbool.h>
 #include <string.h>
 #include <time.h>
+#include "../include/blocks.h"
 #include "../include/tetris_core.h"
+
 
 void delay(long miliseconds){ 
     
@@ -212,7 +214,11 @@ game_state* empty_game_state(int r, int c){
     return gs;
 }
 
-int main(){
+void foo(){
+    printf("hi");
+}
+
+int demo(){
     // random seed
     time_t t;
     srand((unsigned) time(&t));

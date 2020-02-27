@@ -133,22 +133,4 @@ struct Blocks{
     }}
 };
 
-typedef struct GameState{
-    int* display;
-    int* active;
-    int* inactive;
-} game_state;
-
-typedef struct Offset{
-    int i, j;
-} offset;
-
-typedef struct Block{
-    char* block_name;
-    offset *offset;
-    int rot;
-    int *block_coor;
-} block;
-
-
 #endif
