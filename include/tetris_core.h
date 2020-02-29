@@ -12,11 +12,17 @@ typedef struct Offset{
 } offset;
 
 typedef struct Block{
-    char* block_name;
+    char block_name;
     offset *offset;
     int rot;
     int *block_coor;
 } block;
+
+typedef struct Action {
+    int rot;
+    int move;
+} action;
+
 
 void step(game_state* gs,
           int r, 

@@ -7,7 +7,6 @@
 #include "../include/blocks.h"
 #include "../include/tetris_core.h"
 
-
 void delay(long miliseconds){ 
     
     miliseconds *= 1000;
@@ -23,12 +22,12 @@ void disp_matrix(int *mat, int r, int c){
     for (int i=0; i<r; i++){
         printf("%02d|", i);
         for (int j=0; j<c; j++){
-            // printf("%d", *(mat + i*c + j));
-            if (*(mat + i*c + j)){
-                printf("#");
-            }else{
-                printf(" ");
-            }
+            printf("%3d", *(mat + i*c + j));
+            // if (*(mat + i*c + j)){
+            //     printf("#");
+            // }else{
+            //     printf(" ");
+            // }
         }
         printf("|\n");
     }
@@ -36,7 +35,6 @@ void disp_matrix(int *mat, int r, int c){
 }
 
 int* zeros(int r, int c){
-    int i, j;
     int *arr = (int*)calloc(c * r, sizeof(int));
     return arr;
 }
@@ -71,14 +69,9 @@ void deepcopy(int* from, int* to, int n){
 }
 
 bool form_active_screen(int* arr, int* block, offset* o, int r, int c){
-    int i, j, x;
-
+    int i, j;
     int temp_arr[r * c];
-    
     reset_zero(&temp_arr[0], r, c);
-
-    int** old_ptr = &arr;
-
     for (int k = 0; k < 16; k++){
         i = k % 4 + (o->i);
         j = (int)floor(k / 4) + (o->j);
@@ -94,12 +87,58 @@ bool form_active_screen(int* arr, int* block, offset* o, int r, int c){
     return true;
 }
 
-void merge(int* arr1, int* arr2, int* out_arr, int r, int c){
+void merge(int* arr1, int* arr2, int* out_arr, int r, int c, char name){
+    int col[3];
+    switch(name){
+        case 'I':
+            col[0] = 0;
+            col[1] = 255;
+            col[2] = 255;
+            break;
+        case 'J':
+            col[0] = 0;
+            col[1] = 0;
+            col[2] = 255;
+            break;
+        case 'L':
+            col[0] = 256;
+            col[1] = 165;
+            col[2] = 0;
+            break;
+        case 'O':
+            col[0] = 255;
+            col[1] = 255;
+            col[2] = 0;
+            break;
+        case 'S':
+            col[0] = 0;
+            col[1] = 255;
+            col[2] = 0;
+            break;
+        case 'T':
+            col[0] = 128;
+            col[1] = 0;
+            col[2] = 128;
+            break;
+        case 'Z':
+            col[0] = 255;
+            col[1] = 0;
+            col[2] = 0;
+            break;
+        default:
+            col[0] = 0;
+            col[1] = 0;
+            col[2] = 0;
+    }
     for (int i = 0; i < r ; i ++){
         for (int j = 0; j < c; j++){
-            *(out_arr + c * i + j) = *(arr1 + c * i + j) + *(arr2 + c * i + j);
-            if (abs(*(out_arr + c * i + j)) > 1)
-                *(out_arr + c * i + j) = 1;
+            for (int ch = 0; ch < 3; ch++){
+                *(out_arr + ch * r * c + c * i + j) = *(arr2 + ch * r * c + c * i + j) + 
+                col[ch] * *(arr1 + c * i + j);
+                if (*(out_arr + ch * r * c + c * i + j) > 255){
+                    *(out_arr + ch * r * c + c * i + j) = 255;
+                }
+            }                
         }
     }
 }
@@ -107,7 +146,11 @@ void merge(int* arr1, int* arr2, int* out_arr, int r, int c){
 bool check_collide(int* arr1, int* arr2, int r, int c){
     for (int i = 0; i < r ; i ++){
         for (int j = 0; j < c; j++){
-            if (*(arr1 + c * i + j) && *(arr2 + c * i + j)){
+            int sum = 0;
+            for (int ch = 0; ch < 3; ch ++){
+                sum += *(arr2 + ch * r * c + c * i + j);
+            }
+            if (*(arr1 + c * i + j) * sum != 0){
                 return true;
             }
         }
@@ -125,7 +168,7 @@ void get_random_block(block *block){
     block->block_name = stdblocks[n].name;
     block->block_coor = &stdblocks[n].pos[0][0];
     block->rot = 0;
-    block->offset = malloc(sizeof(offset));
+    block->offset = (offset*) malloc(sizeof(offset));
     reset_offset(block->offset);
 }
 
@@ -147,7 +190,7 @@ void step(game_state* gs,
     
 
     offset *poffset;
-    poffset = malloc(sizeof(offset));
+    poffset = (offset*) malloc(sizeof(offset));
 
     bool valid = false;
 
@@ -178,7 +221,7 @@ void step(game_state* gs,
 
     if (valid) {
         // valid then move the new position and merge into display
-        merge(gs->active, gs->inactive, gs->display, r, c);
+        merge(gs->active, gs->inactive, gs->display, r, c, block->block_name);
         // set new offset
         *block->offset = *poffset;
         if (mode == 0){
@@ -190,7 +233,7 @@ void step(game_state* gs,
         form_active_screen(gs->active, block_coor, block->offset, r, c);
         if (mode == 1){
             // merge into the inactive screen
-            merge(gs->active, gs->inactive, gs->inactive, r, c);
+            merge(gs->active, gs->inactive, gs->inactive, r, c, block->block_name);
             // generate a new block
             get_random_block(block);
             // flush the active matrix
@@ -208,14 +251,10 @@ block* init_block(void){
 
 game_state* empty_game_state(int r, int c){
     game_state *gs = (game_state *)malloc(sizeof(game_state));
-    gs->display = (int *)calloc(r * c, sizeof(int));
+    gs->display = (int *)calloc(3 * r * c, sizeof(int));
     gs->active = (int *)calloc(r * c, sizeof(int));
-    gs->inactive = (int *)calloc(r * c, sizeof(int));
+    gs->inactive = (int *)calloc(3 * r * c, sizeof(int));
     return gs;
-}
-
-void foo(){
-    printf("hi");
 }
 
 int demo(){
