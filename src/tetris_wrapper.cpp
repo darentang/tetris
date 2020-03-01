@@ -964,8 +964,8 @@ struct __pyx_memoryviewslice_obj;
  * import numpy as np
  * 
  * cdef class PyTetris:             # <<<<<<<<<<<<<<
+ * 
  *     cdef Tetris c_tetris
- *     cdef action c_action
  */
 struct __pyx_obj_6tetris_PyTetris {
   PyObject_HEAD
@@ -2154,9 +2154,9 @@ static PyObject *__pyx_tuple__31;
 static PyObject *__pyx_codeobj__32;
 /* Late includes */
 
-/* "src/tetris_wrapper.pyx":9
- *     cdef Tetris c_tetris
+/* "src/tetris_wrapper.pyx":12
  *     cdef action c_action
+ * 
  *     def __cinit__(self, int R, int C, int FR):             # <<<<<<<<<<<<<<
  *         self.c_tetris = Tetris(R, C, FR)
  *         self.c_action.move = 0
@@ -2196,17 +2196,17 @@ static int __pyx_pw_6tetris_8PyTetris_1__cinit__(PyObject *__pyx_v_self, PyObjec
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_C)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 1); __PYX_ERR(1, 9, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 1); __PYX_ERR(1, 12, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_FR)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 2); __PYX_ERR(1, 9, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 2); __PYX_ERR(1, 12, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 9, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 12, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -2215,13 +2215,13 @@ static int __pyx_pw_6tetris_8PyTetris_1__cinit__(PyObject *__pyx_v_self, PyObjec
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_R = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_R == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 9, __pyx_L3_error)
-    __pyx_v_C = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_C == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 9, __pyx_L3_error)
-    __pyx_v_FR = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_FR == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 9, __pyx_L3_error)
+    __pyx_v_R = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_R == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L3_error)
+    __pyx_v_C = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_C == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L3_error)
+    __pyx_v_FR = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_FR == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 9, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 12, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("tetris.PyTetris.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2240,8 +2240,8 @@ static int __pyx_pf_6tetris_8PyTetris___cinit__(struct __pyx_obj_6tetris_PyTetri
   tetris::Tetris __pyx_t_1;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "src/tetris_wrapper.pyx":10
- *     cdef action c_action
+  /* "src/tetris_wrapper.pyx":13
+ * 
  *     def __cinit__(self, int R, int C, int FR):
  *         self.c_tetris = Tetris(R, C, FR)             # <<<<<<<<<<<<<<
  *         self.c_action.move = 0
@@ -2251,11 +2251,11 @@ static int __pyx_pf_6tetris_8PyTetris___cinit__(struct __pyx_obj_6tetris_PyTetri
     __pyx_t_1 = tetris::Tetris(__pyx_v_R, __pyx_v_C, __pyx_v_FR);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 10, __pyx_L1_error)
+    __PYX_ERR(1, 13, __pyx_L1_error)
   }
   __pyx_v_self->c_tetris = __pyx_t_1;
 
-  /* "src/tetris_wrapper.pyx":11
+  /* "src/tetris_wrapper.pyx":14
  *     def __cinit__(self, int R, int C, int FR):
  *         self.c_tetris = Tetris(R, C, FR)
  *         self.c_action.move = 0             # <<<<<<<<<<<<<<
@@ -2264,18 +2264,18 @@ static int __pyx_pf_6tetris_8PyTetris___cinit__(struct __pyx_obj_6tetris_PyTetri
  */
   __pyx_v_self->c_action.move = 0;
 
-  /* "src/tetris_wrapper.pyx":12
+  /* "src/tetris_wrapper.pyx":15
  *         self.c_tetris = Tetris(R, C, FR)
  *         self.c_action.move = 0
  *         self.c_action.rot = 0             # <<<<<<<<<<<<<<
  * 
- *     def get_state(self, int move=0, int rot=-1):
+ *     def get_state(self, int move=0, int rot=0):
  */
   __pyx_v_self->c_action.rot = 0;
 
-  /* "src/tetris_wrapper.pyx":9
- *     cdef Tetris c_tetris
+  /* "src/tetris_wrapper.pyx":12
  *     cdef action c_action
+ * 
  *     def __cinit__(self, int R, int C, int FR):             # <<<<<<<<<<<<<<
  *         self.c_tetris = Tetris(R, C, FR)
  *         self.c_action.move = 0
@@ -2292,12 +2292,12 @@ static int __pyx_pf_6tetris_8PyTetris___cinit__(struct __pyx_obj_6tetris_PyTetri
   return __pyx_r;
 }
 
-/* "src/tetris_wrapper.pyx":14
+/* "src/tetris_wrapper.pyx":17
  *         self.c_action.rot = 0
  * 
- *     def get_state(self, int move=0, int rot=-1):             # <<<<<<<<<<<<<<
+ *     def get_state(self, int move=0, int rot=0):             # <<<<<<<<<<<<<<
  *         self.c_action.move = move
- *         if rot != -1:
+ *         self.c_action.rot = rot
  */
 
 /* Python wrapper */
@@ -2337,7 +2337,7 @@ static PyObject *__pyx_pw_6tetris_8PyTetris_3get_state(PyObject *__pyx_v_self, P
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_state") < 0)) __PYX_ERR(1, 14, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_state") < 0)) __PYX_ERR(1, 17, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2350,19 +2350,19 @@ static PyObject *__pyx_pw_6tetris_8PyTetris_3get_state(PyObject *__pyx_v_self, P
       }
     }
     if (values[0]) {
-      __pyx_v_move = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_move == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 14, __pyx_L3_error)
+      __pyx_v_move = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_move == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
     } else {
       __pyx_v_move = ((int)0);
     }
     if (values[1]) {
-      __pyx_v_rot = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_rot == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 14, __pyx_L3_error)
+      __pyx_v_rot = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_rot == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
     } else {
-      __pyx_v_rot = ((int)-1);
+      __pyx_v_rot = ((int)0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_state", 0, 0, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 14, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_state", 0, 0, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 17, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("tetris.PyTetris.get_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2379,201 +2379,181 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_2get_state(struct __pyx_obj_6tetris_
   __Pyx_memviewslice __pyx_v_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
-  int *__pyx_t_2;
-  struct __pyx_array_obj *__pyx_t_3 = NULL;
+  int *__pyx_t_1;
+  struct __pyx_array_obj *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  __Pyx_memviewslice __pyx_t_6 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  __Pyx_memviewslice __pyx_t_5 = { 0, 0, { 0 }, { 0 }, { 0 } };
+  PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
-  PyObject *__pyx_t_9 = NULL;
-  int __pyx_t_10;
-  PyObject *__pyx_t_11 = NULL;
+  int __pyx_t_9;
+  PyObject *__pyx_t_10 = NULL;
   __Pyx_RefNannySetupContext("get_state", 0);
 
-  /* "src/tetris_wrapper.pyx":15
+  /* "src/tetris_wrapper.pyx":18
  * 
- *     def get_state(self, int move=0, int rot=-1):
+ *     def get_state(self, int move=0, int rot=0):
  *         self.c_action.move = move             # <<<<<<<<<<<<<<
- *         if rot != -1:
- *             self.c_action.rot = rot
+ *         self.c_action.rot = rot
+ *         cdef int[::1] view = <int[:3 * self.c_tetris.r * self.c_tetris.c]> self.c_tetris.get_state(self.c_action)
  */
   __pyx_v_self->c_action.move = __pyx_v_move;
 
-  /* "src/tetris_wrapper.pyx":16
- *     def get_state(self, int move=0, int rot=-1):
+  /* "src/tetris_wrapper.pyx":19
+ *     def get_state(self, int move=0, int rot=0):
  *         self.c_action.move = move
- *         if rot != -1:             # <<<<<<<<<<<<<<
- *             self.c_action.rot = rot
+ *         self.c_action.rot = rot             # <<<<<<<<<<<<<<
  *         cdef int[::1] view = <int[:3 * self.c_tetris.r * self.c_tetris.c]> self.c_tetris.get_state(self.c_action)
- */
-  __pyx_t_1 = ((__pyx_v_rot != -1L) != 0);
-  if (__pyx_t_1) {
-
-    /* "src/tetris_wrapper.pyx":17
- *         self.c_action.move = move
- *         if rot != -1:
- *             self.c_action.rot = rot             # <<<<<<<<<<<<<<
- *         cdef int[::1] view = <int[:3 * self.c_tetris.r * self.c_tetris.c]> self.c_tetris.get_state(self.c_action)
- * 
- */
-    __pyx_v_self->c_action.rot = __pyx_v_rot;
-
-    /* "src/tetris_wrapper.pyx":16
- *     def get_state(self, int move=0, int rot=-1):
- *         self.c_action.move = move
- *         if rot != -1:             # <<<<<<<<<<<<<<
- *             self.c_action.rot = rot
- *         cdef int[::1] view = <int[:3 * self.c_tetris.r * self.c_tetris.c]> self.c_tetris.get_state(self.c_action)
- */
-  }
-
-  /* "src/tetris_wrapper.pyx":18
- *         if rot != -1:
- *             self.c_action.rot = rot
- *         cdef int[::1] view = <int[:3 * self.c_tetris.r * self.c_tetris.c]> self.c_tetris.get_state(self.c_action)             # <<<<<<<<<<<<<<
- * 
  *         return np.asarray(view).reshape(3, self.r, self.c)
  */
-  try {
-    __pyx_t_2 = __pyx_v_self->c_tetris.get_state(__pyx_v_self->c_action);
-  } catch(...) {
-    __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 18, __pyx_L1_error)
-  }
-  if (!__pyx_t_2) {
-    PyErr_SetString(PyExc_ValueError,"Cannot create cython.array from NULL pointer");
-    __PYX_ERR(1, 18, __pyx_L1_error)
-  }
-  __pyx_t_5 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_int);
-  __pyx_t_4 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)((3 * __pyx_v_self->c_tetris.r) * __pyx_v_self->c_tetris.c)));
-  if (unlikely(!__pyx_t_5 || !__pyx_t_4 || !PyBytes_AsString(__pyx_t_5))) __PYX_ERR(1, 18, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __pyx_array_new(__pyx_t_4, sizeof(int), PyBytes_AS_STRING(__pyx_t_5), (char *) "c", (char *) __pyx_t_2);
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 18, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_dc_int(((PyObject *)__pyx_t_3), PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 18, __pyx_L1_error)
-  __Pyx_DECREF(((PyObject *)__pyx_t_3)); __pyx_t_3 = 0;
-  __pyx_v_view = __pyx_t_6;
-  __pyx_t_6.memview = NULL;
-  __pyx_t_6.data = NULL;
+  __pyx_v_self->c_action.rot = __pyx_v_rot;
 
   /* "src/tetris_wrapper.pyx":20
- *         cdef int[::1] view = <int[:3 * self.c_tetris.r * self.c_tetris.c]> self.c_tetris.get_state(self.c_action)
+ *         self.c_action.move = move
+ *         self.c_action.rot = rot
+ *         cdef int[::1] view = <int[:3 * self.c_tetris.r * self.c_tetris.c]> self.c_tetris.get_state(self.c_action)             # <<<<<<<<<<<<<<
+ *         return np.asarray(view).reshape(3, self.r, self.c)
  * 
+ */
+  try {
+    __pyx_t_1 = __pyx_v_self->c_tetris.get_state(__pyx_v_self->c_action);
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    __PYX_ERR(1, 20, __pyx_L1_error)
+  }
+  if (!__pyx_t_1) {
+    PyErr_SetString(PyExc_ValueError,"Cannot create cython.array from NULL pointer");
+    __PYX_ERR(1, 20, __pyx_L1_error)
+  }
+  __pyx_t_4 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_int);
+  __pyx_t_3 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)((3 * __pyx_v_self->c_tetris.r) * __pyx_v_self->c_tetris.c)));
+  if (unlikely(!__pyx_t_4 || !__pyx_t_3 || !PyBytes_AsString(__pyx_t_4))) __PYX_ERR(1, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = __pyx_array_new(__pyx_t_3, sizeof(int), PyBytes_AS_STRING(__pyx_t_4), (char *) "c", (char *) __pyx_t_1);
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_dc_int(((PyObject *)__pyx_t_2), PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(1, 20, __pyx_L1_error)
+  __Pyx_DECREF(((PyObject *)__pyx_t_2)); __pyx_t_2 = 0;
+  __pyx_v_view = __pyx_t_5;
+  __pyx_t_5.memview = NULL;
+  __pyx_t_5.data = NULL;
+
+  /* "src/tetris_wrapper.pyx":21
+ *         self.c_action.rot = rot
+ *         cdef int[::1] view = <int[:3 * self.c_tetris.r * self.c_tetris.c]> self.c_tetris.get_state(self.c_action)
  *         return np.asarray(view).reshape(3, self.r, self.c)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 20, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_asarray); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 20, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_v_view, 1, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 20, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_9 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
-    __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_8);
-    if (likely(__pyx_t_9)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-      __Pyx_INCREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_view, 1, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_8 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_7);
+    if (likely(__pyx_t_8)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+      __Pyx_INCREF(__pyx_t_8);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_8, function);
+      __Pyx_DECREF_SET(__pyx_t_7, function);
     }
   }
-  __pyx_t_4 = (__pyx_t_9) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_9, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_7);
-  __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_3 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_8, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 20, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_reshape); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 20, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_r); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 20, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_c); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 20, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_reshape); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_9 = NULL;
-  __pyx_t_10 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
-    __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_8);
-    if (likely(__pyx_t_9)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-      __Pyx_INCREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_c); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_8 = NULL;
+  __pyx_t_9 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_7);
+    if (likely(__pyx_t_8)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+      __Pyx_INCREF(__pyx_t_8);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_8, function);
-      __pyx_t_10 = 1;
+      __Pyx_DECREF_SET(__pyx_t_7, function);
+      __pyx_t_9 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_8)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_9, __pyx_int_3, __pyx_t_4, __pyx_t_7};
-    __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_10, 3+__pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 20, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (PyFunction_Check(__pyx_t_7)) {
+    PyObject *__pyx_temp[4] = {__pyx_t_8, __pyx_int_3, __pyx_t_3, __pyx_t_6};
+    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_9, 3+__pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 21, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_9, __pyx_int_3, __pyx_t_4, __pyx_t_7};
-    __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_10, 3+__pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 20, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
+    PyObject *__pyx_temp[4] = {__pyx_t_8, __pyx_int_3, __pyx_t_3, __pyx_t_6};
+    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_9, 3+__pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 21, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   } else
   #endif
   {
-    __pyx_t_11 = PyTuple_New(3+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(1, 20, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_11);
-    if (__pyx_t_9) {
-      __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_9); __pyx_t_9 = NULL;
+    __pyx_t_10 = PyTuple_New(3+__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 21, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    if (__pyx_t_8) {
+      __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_8); __pyx_t_8 = NULL;
     }
     __Pyx_INCREF(__pyx_int_3);
     __Pyx_GIVEREF(__pyx_int_3);
-    PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_10, __pyx_int_3);
-    __Pyx_GIVEREF(__pyx_t_4);
-    PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_10, __pyx_t_4);
-    __Pyx_GIVEREF(__pyx_t_7);
-    PyTuple_SET_ITEM(__pyx_t_11, 2+__pyx_t_10, __pyx_t_7);
-    __pyx_t_4 = 0;
-    __pyx_t_7 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_11, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 20, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+    PyTuple_SET_ITEM(__pyx_t_10, 0+__pyx_t_9, __pyx_int_3);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_9, __pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_6);
+    PyTuple_SET_ITEM(__pyx_t_10, 2+__pyx_t_9, __pyx_t_6);
+    __pyx_t_3 = 0;
+    __pyx_t_6 = 0;
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_10, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 21, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   }
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_r = __pyx_t_5;
-  __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "src/tetris_wrapper.pyx":14
+  /* "src/tetris_wrapper.pyx":17
  *         self.c_action.rot = 0
  * 
- *     def get_state(self, int move=0, int rot=-1):             # <<<<<<<<<<<<<<
+ *     def get_state(self, int move=0, int rot=0):             # <<<<<<<<<<<<<<
  *         self.c_action.move = move
- *         if rot != -1:
+ *         self.c_action.rot = rot
  */
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(((PyObject *)__pyx_t_3));
+  __Pyx_XDECREF(((PyObject *)__pyx_t_2));
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
+  __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_XDECREF(__pyx_t_10);
   __Pyx_AddTraceback("tetris.PyTetris.get_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2583,7 +2563,7 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_2get_state(struct __pyx_obj_6tetris_
   return __pyx_r;
 }
 
-/* "src/tetris_wrapper.pyx":23
+/* "src/tetris_wrapper.pyx":24
  * 
  *     @property
  *     def r(self):             # <<<<<<<<<<<<<<
@@ -2610,7 +2590,7 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_1r___get__(struct __pyx_obj_6tetris_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "src/tetris_wrapper.pyx":24
+  /* "src/tetris_wrapper.pyx":25
  *     @property
  *     def r(self):
  *         return self.c_tetris.r             # <<<<<<<<<<<<<<
@@ -2618,13 +2598,13 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_1r___get__(struct __pyx_obj_6tetris_
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_tetris.r); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 24, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_tetris.r); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "src/tetris_wrapper.pyx":23
+  /* "src/tetris_wrapper.pyx":24
  * 
  *     @property
  *     def r(self):             # <<<<<<<<<<<<<<
@@ -2643,7 +2623,7 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_1r___get__(struct __pyx_obj_6tetris_
   return __pyx_r;
 }
 
-/* "src/tetris_wrapper.pyx":27
+/* "src/tetris_wrapper.pyx":28
  * 
  *     @property
  *     def c(self):             # <<<<<<<<<<<<<<
@@ -2670,7 +2650,7 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_1c___get__(struct __pyx_obj_6tetris_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "src/tetris_wrapper.pyx":28
+  /* "src/tetris_wrapper.pyx":29
  *     @property
  *     def c(self):
  *         return self.c_tetris.c             # <<<<<<<<<<<<<<
@@ -2678,13 +2658,13 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_1c___get__(struct __pyx_obj_6tetris_
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_tetris.c); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 28, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_tetris.c); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "src/tetris_wrapper.pyx":27
+  /* "src/tetris_wrapper.pyx":28
  * 
  *     @property
  *     def c(self):             # <<<<<<<<<<<<<<
@@ -2703,7 +2683,7 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_1c___get__(struct __pyx_obj_6tetris_
   return __pyx_r;
 }
 
-/* "src/tetris_wrapper.pyx":31
+/* "src/tetris_wrapper.pyx":32
  * 
  *     @property
  *     def fall_rate(self):             # <<<<<<<<<<<<<<
@@ -2730,7 +2710,7 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_9fall_rate___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "src/tetris_wrapper.pyx":32
+  /* "src/tetris_wrapper.pyx":33
  *     @property
  *     def fall_rate(self):
  *         return self.c_tetris.fall_rate             # <<<<<<<<<<<<<<
@@ -2738,13 +2718,13 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_9fall_rate___get__(struct __pyx_obj_
  *     @fall_rate.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_tetris.fall_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 32, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_tetris.fall_rate); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "src/tetris_wrapper.pyx":31
+  /* "src/tetris_wrapper.pyx":32
  * 
  *     @property
  *     def fall_rate(self):             # <<<<<<<<<<<<<<
@@ -2763,7 +2743,7 @@ static PyObject *__pyx_pf_6tetris_8PyTetris_9fall_rate___get__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "src/tetris_wrapper.pyx":35
+/* "src/tetris_wrapper.pyx":36
  * 
  *     @fall_rate.setter
  *     def fall_rate(self, fr):             # <<<<<<<<<<<<<<
@@ -2789,15 +2769,15 @@ static int __pyx_pf_6tetris_8PyTetris_9fall_rate_2__set__(struct __pyx_obj_6tetr
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "src/tetris_wrapper.pyx":36
+  /* "src/tetris_wrapper.pyx":37
  *     @fall_rate.setter
  *     def fall_rate(self, fr):
  *         self.c_tetris.fall_rate = fr             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_fr); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 36, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_fr); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 37, __pyx_L1_error)
   __pyx_v_self->c_tetris.fall_rate = __pyx_t_1;
 
-  /* "src/tetris_wrapper.pyx":35
+  /* "src/tetris_wrapper.pyx":36
  * 
  *     @fall_rate.setter
  *     def fall_rate(self, fr):             # <<<<<<<<<<<<<<

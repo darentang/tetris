@@ -7,6 +7,7 @@
         "stdio.h": "c",
         "math.h": "c",
         "tetris_core.h": "c",
-        "tetris.h": "c"
+        "tetris.h": "c",
+        "cstdio": "c"
     }
 }

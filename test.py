@@ -1,22 +1,30 @@
 from tetris import PyTetris
-import matplotlib
-matplotlib.use('TkAgg')
-import matplotlib.pyplot as plt
-
+import cv2
 import numpy as np
 
+scale = 20
+game = PyTetris(20, 10, 10)
 
-game = PyTetris(20, 10, 1)
-fig = plt.figure()
-ax = fig.add_subplot(111)
+keymap = {
+    # left
+    81: (-1, 0),
+    # up
+    82: (0, 1),
+    # right
+    83: (1, 0),
+    # down
+    84: (0, -1),
+}
 
-def animate():
-    im = plt.imshow(np.zeros((20, 10)))
-    for i in range(100):
-        s = game.get_state(1, np.random.randint(0, 3))
-        im.set_data(s.transpose(1, 2, 0))
-        fig.canvas.draw()
+key = -1
 
-win = fig.canvas.manager.window
-fig.canvas.manager.window.after(200, animate)
-plt.show()
+while True:
+    screen = game.get_state(*keymap.get(key, (0, 0)))
+    screen = screen.transpose(1, 2, 0).astype("float32").repeat(scale, axis=0).repeat(scale, axis=1)
+    screen = cv2.cvtColor(screen, cv2.COLOR_RGB2BGR)
+    cv2.imshow('screen', screen)
+    key = cv2.waitKey(20)
+    if key == ord('q'):
+        break
+
+

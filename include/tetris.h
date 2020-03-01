@@ -18,12 +18,12 @@ namespace tetris {
             int* get_state(action a);
         private:
             void game_step(int rot, int move, int i) {
+                // moving
+                step(gs, r, c, active_block, rot, move, 0);
                 // falling
                 if (i % fall_rate == 0){
                     step(gs, r, c, active_block, 0, 0, 1);
                 }
-                // moving
-                step(gs, r, c, active_block, rot, move, 0);
             }
     };
 }

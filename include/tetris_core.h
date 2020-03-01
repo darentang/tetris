@@ -36,8 +36,6 @@ void get_random_block(block* block);
 block* init_block(void);
 game_state* empty_game_state(int r, int c);
 
-void disp_matrix(int* arr, int r, int c);
-
 void foo();
 
 #endif

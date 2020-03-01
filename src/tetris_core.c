@@ -8,9 +8,7 @@
 #include "../include/tetris_core.h"
 
 void delay(long miliseconds){ 
-    
     miliseconds *= 1000;
-
     // Storing start time 
     clock_t start_time = clock();     
 
@@ -18,16 +16,17 @@ void delay(long miliseconds){
     while (clock() < start_time + miliseconds);
 }
 
-void disp_matrix(int *mat, int r, int c){
+void disp_matrix(int *mat, int r, int c, int ch){
     for (int i=0; i<r; i++){
         printf("%02d|", i);
         for (int j=0; j<c; j++){
-            printf("%3d", *(mat + i*c + j));
-            // if (*(mat + i*c + j)){
-            //     printf("#");
-            // }else{
-            //     printf(" ");
-            // }
+            int s = 0;
+            for (int cc=0; cc<ch; cc++) s += *(mat + r * c * cc + i * c + j);
+            if (s > 0 ){
+                printf("#");
+            }else{
+                printf(" ");
+            }
         }
         printf("|\n");
     }
@@ -172,12 +171,21 @@ void get_random_block(block *block){
     reset_offset(block->offset);
 }
 
-void fall(offset *o){
+void fall(offset *o) {
     o->i ++;
 }
 
-void move(offset *o, int direction){
+void move(offset *o, int direction) {
     o->j += direction;
+}
+
+int mod(int a, int b){
+    if (a == 0) return 0;
+    if ((a > 0) == (b > 0)){
+        return a % b;
+    } else {
+        return (a % b) + b;
+    }
 }
 
 void step(game_state* gs, 
@@ -186,7 +194,7 @@ void step(game_state* gs,
           block *block,
           int rot,
           int dir,
-          int mode){
+          int mode) {
     
 
     offset *poffset;
@@ -201,16 +209,15 @@ void step(game_state* gs,
     // save previous state
     *poffset = *(block->offset);
 
-    if (mode == 0){
+    if (mode == 0) {
         move(poffset, dir);
-        desired_block_coor = block->block_coor + 16 * rot;
-    } else if (mode == 1){
+        desired_block_coor = block->block_coor + 16 * mod(rot + block->rot, 4);
+    } else if (mode == 1) {
         // fall down one step
         fall(poffset);
         desired_block_coor = block_coor;
     }
 
-    
     // Check out of bounds
     if (form_active_screen(gs->active, desired_block_coor, poffset, r, c)){
         // Check collisions with passive
@@ -220,14 +227,14 @@ void step(game_state* gs,
     }
 
     if (valid) {
+        if (mode == 0){
+            // set new rotation
+            block->rot = mod(rot + block->rot, 4);
+        }
         // valid then move the new position and merge into display
         merge(gs->active, gs->inactive, gs->display, r, c, block->block_name);
         // set new offset
         *block->offset = *poffset;
-        if (mode == 0){
-            // set new rotation
-            block->rot = rot;
-        }
     }else{
         // return to previous state
         form_active_screen(gs->active, block_coor, block->offset, r, c);
@@ -257,7 +264,7 @@ game_state* empty_game_state(int r, int c){
     return gs;
 }
 
-int demo(){
+int main(){
     // random seed
     time_t t;
     srand((unsigned) time(&t));
@@ -276,10 +283,11 @@ int demo(){
 
     for (int t = 0; t < N; t ++){
         printf("\e[1;1H\e[2J");
+        step(gs, r, c, block, 1, 0, 0);
         step(gs, r, c, block, 0, 0, 1);
-        step(gs, r, c, block, rand() % 4, -1, 0);
+
         
-        disp_matrix(gs->display, r, c);
+        disp_matrix(gs->display, r, c, 3);
         delay(100);
     }
     return 0;
