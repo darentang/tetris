@@ -1,3 +1,3 @@
 # Tetris
 
-Using machine learning to play tetris.
+C Implementation of tetris.
